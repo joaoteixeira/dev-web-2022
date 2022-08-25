@@ -1,6 +1,8 @@
+const nunjucks = require('nunjucks');
 const express = require('express');
 const app = express();
-const nunjucks = require('nunjucks')
+const routesBase = require('./routes/base');
+const routesContato = require('./routes/contato');
 
 // configs template engine
 nunjucks.configure('views', {
@@ -10,17 +12,12 @@ nunjucks.configure('views', {
 });
 app.set('view engine', 'html');
 app.use(express.static('public'));
+app.use(express.urlencoded({ extended: false }));
 
 // configs routes
-app.get('/', function (request, response) {
-    response.render('index');
-});
-
-app.get('/sobre', function (request, response) {
-    response.render('sobre');
-});
-
+app.use(routesBase);
+app.use(routesContato);
 
 app.listen('8000', function () {
-    console.log('Server online:8000');
+    console.log('>> Server online:8000');
 });

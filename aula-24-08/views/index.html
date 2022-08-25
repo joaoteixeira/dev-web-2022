@@ -4,6 +4,12 @@
 <div class="container">
 
   <h1 class="mt-5">Web-app - Desenvolvido em NodeJS</h1>
+  
+  {% if user %}
+  <h2>Bem vindo {{ user.nome }} -
+    {{ user.email }}
+  </h2>
+  {% endif %}
 
   <p class="lead">Pin a footer to the bottom of the viewport in desktop browsers with this custom HTML and
     CSS. A fixed navbar has been added with <code class="small">padding-top: 60px;</code> on the <code
