@@ -15,7 +15,6 @@
     "nunjucks": "^3.2.3"
   },
   "devDependencies": {
-    "nodemon": "^2.0.19",
-    "prisma": "^4.4.0"
+    "nodemon": "^2.0.19"
   }
 }
