@@ -1,7 +1,13 @@
+const { PrismaClient } = require('@prisma/client');
+const prisma = new PrismaClient();
+
 // Controller de Chamados
 
-function list(request, response) {
-  response.render('chamado/listagem');
+async function list(request, response) {
+
+  const chamados = await prisma.chamado.findMany();
+
+  response.render('chamado/listagem', { listaChamados: chamados});
 }
 
 function show(request, response) {
@@ -14,8 +20,18 @@ function create_form(request, response) {
   response.render('chamado/abrir-form');
 }
 
-function create(request, response) {
-  response.send('create save');
+async function create(request, response) {
+
+  const { inputAssunto, inputDescricao } = request.body;
+
+  const result = await prisma.chamado.create({
+    data: {
+      assunto: inputAssunto,
+      descricao: inputDescricao
+    }
+  });
+
+  response.redirect('/chamados');
 }
 
 function update_form(request, response) {
