@@ -24,6 +24,6 @@ app.use(routesBase);
 app.use(routesContato);
 app.use(routesChamado);
 
-app.listen('3003', function () {
-    console.log('>> Server online:8000');
+app.listen('3000', function () {
+    console.log('>> Server online:3000');
 });

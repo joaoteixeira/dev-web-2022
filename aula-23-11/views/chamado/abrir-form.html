@@ -16,29 +16,32 @@
       </div>
 
       <div class="card-body">
-        <form action="/chamados/abrir" method="post">
+
+        {% set action = '/chamados/abrir' if chamado == undefined else '/chamados/' + chamado.id + '/atualizar' %}
+        
+        <form action="{{ action }}" method="post">
 
           <div class="row">
             <div class="col-8">
               <div class="form-group">
                 <label>Assunto</label>
-                <input type="text" class="form-control" name="inputAssunto" placeholder="Informe o assunto">
+                <input type="text" class="form-control" name="inputAssunto" value="{{ chamado.assunto }}" placeholder="Informe o assunto">
               </div>
             </div>
             <div class="col-4">
               <div class="form-group">
-                <label>Data - {{ data }}</label>
-                <input type="date" value="{{ data }}" class="form-control" name="inputData" placeholder="Informe o assunto">
+                <label>Data</label>
+                <input type="date" class="form-control" name="inputData" value="{{ chamado.dataAbertura }}" readonly="true" placeholder="Informe o assunto">
               </div>
             </div>
           </div>
 
           <div class="form-group">
             <label>Descrição</label>
-            <textarea class="form-control" name="inputDescricao" cols="30" rows="10"></textarea>
+            <textarea class="form-control" name="inputDescricao" cols="30" rows="10">{{ chamado.descricao }}</textarea>
           </div>
 
-          <button type="submit" class="btn btn-primary">Abrir</button>
+          <button type="submit" class="btn btn-primary">Salvar</button>
         </form>
 
       </div>

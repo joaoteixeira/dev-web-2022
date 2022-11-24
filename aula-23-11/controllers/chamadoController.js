@@ -1,4 +1,6 @@
 const { PrismaClient } = require('@prisma/client');
+const date = require('date-and-time')
+
 const prisma = new PrismaClient();
 
 // Controller de Chamados
@@ -34,14 +36,37 @@ async function create(request, response) {
   response.redirect('/chamados');
 }
 
-function update_form(request, response) {
+async function update_form(request, response) {
 
-  
-  response.send('update form');
+  const { id } = request.params;
+
+  const chamado = await prisma.chamado.findUnique({
+    where: {
+      id: parseInt(id)
+    },
+  })
+
+  chamado.dataAbertura = date.format(chamado.dataAbertura, 'YYYY-MM-DD')
+
+  response.render('chamado/abrir-form', { chamado });
 }
 
-function update(request, response) {
-  response.send('update save');
+async function update(request, response) {
+
+  const { id } = request.params;
+  const { inputAssunto, inputDescricao } = request.body;
+
+  const result = await prisma.chamado.update({
+    where: {
+      id: +id
+    },
+    data: {
+      assunto: inputAssunto,
+      descricao: inputDescricao
+    }
+  });
+
+  response.redirect('/chamados');
 }
 
 function _delete_form(request, response) {
